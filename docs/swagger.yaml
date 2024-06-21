@@ -1,0 +1,162 @@
+definitions:
+  main.ResponseID:
+    properties:
+      id:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /add:
+    post:
+      consumes:
+      - application/json
+      description: Добавление записи
+      operationId: Add
+      parameters:
+      - description: Объект для записи
+        in: body
+        name: input
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.ResponseID'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Add
+      tags:
+      - basic
+  /add-in-table/{table}:
+    post:
+      consumes:
+      - application/json
+      description: Добавление записи в подхранилище
+      operationId: AddInTable
+      parameters:
+      - description: Объект для записи
+        in: body
+        name: input
+        required: true
+        schema:
+          type: object
+      - description: Table
+        in: path
+        name: table
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.ResponseID'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: AddInTable
+      tags:
+      - by table
+  /get-all:
+    get:
+      consumes:
+      - application/json
+      description: Получение всех объектов
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: object
+            type: array
+      summary: GetAll
+      tags:
+      - basic
+  /get-by-id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Получение всех объектов
+      operationId: GetByID
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: GetByID
+      tags:
+      - basic
+  /get-by-table-and-id/{table}/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Получение всех объектов таблицы
+      operationId: GetByTableAndID
+      parameters:
+      - description: table
+        in: path
+        name: table
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: GetByTableAndID
+      tags:
+      - by table
+  /get-by-table/{table}:
+    get:
+      consumes:
+      - application/json
+      description: Получение всех объектов таблицы
+      operationId: GetByTable
+      parameters:
+      - description: table
+        in: path
+        name: table
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+      summary: GetByTable
+      tags:
+      - by table
+swagger: "2.0"
